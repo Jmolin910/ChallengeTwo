@@ -2,6 +2,8 @@
     "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "lib/**/*.jar",
+        "c:\\Users\\jdugg\\Downloads\\GitSubprocessClient-v0.0.12.jar",
+        "c:\\Users\\jdugg\\Downloads\\GitHubApiClient-v0.0.7.jar"
     ]
 }
