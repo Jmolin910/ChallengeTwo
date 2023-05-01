@@ -33,16 +33,24 @@ public class GitRepoCreator {
 
         // Logo images
         try {
-            ImageIcon logo1 = new ImageIcon("your-logo1.png");
+            // First logo in top-left corner
+            ImageIcon logo1 = new ImageIcon("ChallengeTwo/Logos/Microsoft.png");
+            JLabel label1 = new JLabel(logo1);
+            label1.setPreferredSize(new Dimension(50, 50)); // Set size of image label
             c.gridx = 0;
             c.gridy = 0;
-            panel.add(new JLabel(logo1), c);
-
-            ImageIcon logo2 = new ImageIcon("your-logo2.png");
-            c.gridx = 1;
+            panel.add(label1, c);
+    
+            // Second logo in top-right corner
+            ImageIcon logo2 = new ImageIcon("ChallengeTwo/Logos/Quinnipiac.png");
+            JLabel label2 = new JLabel(logo2);
+            label2.setPreferredSize(new Dimension(50, 50)); // Set size of image label
+            c.gridx = 2;
             c.gridy = 0;
-            panel.add(new JLabel(logo2), c);
-        } catch (Exception e) {
+            c.anchor = GridBagConstraints.EAST; // Align to right of cell
+            panel.add(label2, c); 
+        }
+            catch (Exception e) {
             System.out.println("Logo images not found.");
         }
 
