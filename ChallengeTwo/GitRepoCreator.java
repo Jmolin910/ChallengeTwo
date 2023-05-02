@@ -2,6 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
+import git.tools.client.GitSubprocessClient;
+import github.tools.client.GitHubApiClient;
+import github.tools.client.RequestParams;
+import github.tools.responseObjects.*;
 
 public class GitRepoCreator {
 
@@ -141,6 +148,23 @@ public class GitRepoCreator {
                     System.out.println("Project Path: " + projectPath);
                     System.out.println("Visibility: " + (isPublic ? "Public" : "Private"));
                     System.out.println("Description: " + description);
+
+                    GitHubApiClient gitHubApiClient = new GitHubApiClient(username, token);
+                    GitSubprocessClient gitSubprocessClient = new GitSubprocessClient(projectPath);
+                    gitSubprocessClient.gitInit();
+                    RequestParams requestParams = new RequestParams();
+                    requestParams.addParam("name", projectName); // name of repo
+                    requestParams.addParam("description", description);
+                    requestParams.addParam("private", !isPublic); // if repo is private or not
+                    CreateRepoResponse createRepo = gitHubApiClient.createRepo(requestParams);
+                    String repoLink = createRepo.getUrl();
+                    gitSubprocessClient.gitRemoteAdd("origin", repoLink);
+                    gitSubprocessClient.gitAddAll();
+                    String commitMessage = "Initial commit";
+                    gitSubprocessClient.gitCommit(commitMessage);
+                    gitSubprocessClient.gitPush("main");
+                    gitSubprocessClient.gitPull("main");
+
                 }
             });
             c.gridx = 1;
